@@ -1,0 +1,91 @@
+openapi: 3.0.0
+
+info:
+  version: '1.0'
+
+paths:
+  /routes:
+    get:
+      summary: Compute distance and time-to-destination from src to each dst.
+      operationId: FindRoutes
+      parameters:
+        - in: query
+          name: src
+          required: true
+          schema:
+            $ref: "#/components/schemas/LngLat"
+        - in: query
+          name: dst
+          required: true
+          schema:
+            type: array
+            items:
+              $ref: "#/components/schemas/LngLat"
+      responses:
+        '200':
+          $ref: '#/components/responses/Routes'
+        default:
+          $ref: '#/components/responses/Error'
+
+components:
+  responses:
+    Error:
+      description: Generic API error.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+    Routes:
+      description: Routes from source to a list of destinations.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Routes'
+
+  schemas:
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: string
+      required:
+        - message
+        - code
+
+    Routes:
+      type: object
+      properties:
+        source:
+          $ref: "#/components/schemas/LngLat"
+        routes:
+          type: array
+          items:
+            $ref: "#/components/schemas/Route"
+      required:
+        - source
+        - routes
+
+    Route:
+      type: object
+      properties:
+        destination:
+          $ref: "#/components/schemas/LngLat"
+        distance:
+          type: number
+          description: distance from source to destination in meters
+        duration:
+          type: number
+          description: time from source to destination in seconds
+      required:
+        - destination
+        - distance
+        - duration
+
+    LngLat:
+      description: comma-separated longitude and latitude coord
+      type: string
+
+
