@@ -27,3 +27,4 @@ otherwise `git clone` and `go build .` or `go run .`
 
 - rate limited to 1 req/sec
 - CORS allowed for all origins with max-age
+- `go generate` for codegen
