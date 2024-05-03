@@ -1,8 +1,12 @@
 # ingrid osrm demo
 
+run with `go run`:
+
 ```
-go run github.com/sirdivealot/ingrid
+go run github.com/sirdivealot/ingrid@latest
 ```
+
+otherwise `git clone` and `go build .` or `go run .`
 
 - env `HOST` controls host binding, e.g. `HOST=0.0.0.0`
 - env `PORT` specifies port binding, e.g. `PORT=8080`
